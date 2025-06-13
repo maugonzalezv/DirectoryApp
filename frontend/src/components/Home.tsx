@@ -32,6 +32,8 @@ const Home: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
 
+
+
   //submit form
   const onSubmit = async (data: ContactForm) => {
     try {

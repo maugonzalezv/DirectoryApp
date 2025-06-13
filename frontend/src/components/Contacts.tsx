@@ -489,56 +489,141 @@ const Contacts: React.FC = () => {
         <Dialog 
           open={editDialog} 
           onClose={() => setEditDialog(false)}
-          maxWidth="md"
+          maxWidth="lg"
           fullWidth
         >
           <DialogTitle>Edit Contact</DialogTitle>
           <DialogContent>
             {editForm && (
-              <Box sx={{ 
-                display: 'grid',
-                gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
-                gap: 2,
-                mt: 1
-              }}>
+              <Box sx={{ mt: 2 }}>
+                {/* Personal Information */}
+                <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+                  Personal Information
+                </Typography>
+                <Box sx={{ 
+                  display: 'grid',
+                  gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
+                  gap: 2,
+                  mb: 3
+                }}>
+                  <TextField
+                    fullWidth
+                    label="First Name *"
+                    value={editForm.nombre}
+                    onChange={(e) => setEditForm({...editForm, nombre: e.target.value})}
+                    required
+                  />
+                  <TextField
+                    fullWidth
+                    label="Last Name *"
+                    value={editForm.apellido}
+                    onChange={(e) => setEditForm({...editForm, apellido: e.target.value})}
+                    required
+                  />
+                  <TextField
+                    fullWidth
+                    label="Phone"
+                    value={editForm.telefono}
+                    onChange={(e) => setEditForm({...editForm, telefono: e.target.value})}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Email"
+                    type="email"
+                    value={editForm.correo_electronico}
+                    onChange={(e) => setEditForm({...editForm, correo_electronico: e.target.value})}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Birthday"
+                    type="date"
+                    value={editForm.fecha_cumpleanos}
+                    onChange={(e) => setEditForm({...editForm, fecha_cumpleanos: e.target.value})}
+                    InputLabelProps={{ shrink: true }}
+                  />
+                </Box>
+
+                {/* Address Information */}
+                <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+                  Address Information
+                </Typography>
+                <Box sx={{ 
+                  display: 'grid',
+                  gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
+                  gap: 2,
+                  mb: 3
+                }}>
+                  <TextField
+                    fullWidth
+                    label="Street Address"
+                    value={editForm.calle}
+                    onChange={(e) => setEditForm({...editForm, calle: e.target.value})}
+                    sx={{ gridColumn: { xs: '1', md: '1 / -1' } }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="City"
+                    value={editForm.ciudad}
+                    onChange={(e) => setEditForm({...editForm, ciudad: e.target.value})}
+                  />
+                  <TextField
+                    fullWidth
+                    label="State/Province"
+                    value={editForm.estado}
+                    onChange={(e) => setEditForm({...editForm, estado: e.target.value})}
+                  />
+                </Box>
+
+                {/* Professional Information */}
+                <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+                  Professional Information
+                </Typography>
+                <Box sx={{ 
+                  display: 'grid',
+                  gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
+                  gap: 2,
+                  mb: 3
+                }}>
+                  <TextField
+                    fullWidth
+                    label="Company"
+                    value={editForm.empresa}
+                    onChange={(e) => setEditForm({...editForm, empresa: e.target.value})}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Job Title"
+                    value={editForm.cargo}
+                    onChange={(e) => setEditForm({...editForm, cargo: e.target.value})}
+                  />
+                </Box>
+
+                {/* Additional Information */}
+                <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+                  Additional Information
+                </Typography>
                 <TextField
                   fullWidth
-                  label="First Name"
-                  value={editForm.nombre}
-                  onChange={(e) => setEditForm({...editForm, nombre: e.target.value})}
-                />
-                <TextField
-                  fullWidth
-                  label="Last Name"
-                  value={editForm.apellido}
-                  onChange={(e) => setEditForm({...editForm, apellido: e.target.value})}
-                />
-                <TextField
-                  fullWidth
-                  label="Phone"
-                  value={editForm.telefono}
-                  onChange={(e) => setEditForm({...editForm, telefono: e.target.value})}
-                />
-                <TextField
-                  fullWidth
-                  label="Email"
-                  type="email"
-                  value={editForm.correo_electronico}
-                  onChange={(e) => setEditForm({...editForm, correo_electronico: e.target.value})}
-                />
-                <TextField
-                  fullWidth
-                  label="Street Address"
-                  value={editForm.calle}
-                  onChange={(e) => setEditForm({...editForm, calle: e.target.value})}
-                  sx={{ gridColumn: { xs: '1', md: '1 / -1' } }}
+                  label="Notes"
+                  multiline
+                  rows={3}
+                  value={editForm.notas}
+                  onChange={(e) => setEditForm({...editForm, notas: e.target.value})}
+                  placeholder="Add any additional notes about this contact..."
                 />
               </Box>
             )}
           </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setEditDialog(false)}>Cancel</Button>
-            <Button variant="contained" onClick={handleEdit}>
+          <DialogActions sx={{ px: 3, py: 2 }}>
+            <Button onClick={() => setEditDialog(false)} size="large">
+              Cancel
+            </Button>
+            <Button 
+              variant="contained" 
+              onClick={handleEdit}
+              size="large"
+              disabled={!editForm?.nombre || !editForm?.apellido}
+            >
               Save Changes
             </Button>
           </DialogActions>
